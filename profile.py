@@ -20,6 +20,14 @@ tourDescription = \
 This profile provides the template for a small cluster to implement/test Spark Streaming Dashboard
 """
 
+
+tourInstructions = \
+"""
+After your instance boots (approx. 10-15 minutes), you can begin the setup process using 
+[Ambari Server WebUI](http://{host-namenode}:8080/) with the default admin/admin as username and password. 
+"""
+
+
 #
 # Setup the Tour info with the above description and instructions.
 #  
