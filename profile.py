@@ -24,7 +24,6 @@ This profile provides the template for a small cluster to implement/test Spark S
 tourInstructions = \
 """
 [Grafana Server WebUI](http://{host-grafana}:8080/) 
-[Jupyter Server](http://{host-sparkMaster}:4040/) with the default admin/admin as username and password. 
 """
 
 
