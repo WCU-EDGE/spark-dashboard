@@ -18,21 +18,62 @@ tour.Description(IG.Tour.TEXT,tourDescription)
 request.addTour(tour)
 
 prefixForIP = "192.168.1."
+currentIP = 1
 link = request.LAN("lan")
 
+# setup three webservers
 for i in range(3):
-  if i == 0:
-    node = request.XenVM("head")
-  else:
-    node = request.XenVM("worker-" + str(i))
-  node.cores = 8
-  node.ram = 8192
+  node = request.XenVM("ws" + str(i+1))
   node.routable_control_ip = "true" 
   node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
-  iface = node.addInterface("if" + str(i))
+  iface = node.addInterface("if" + str(currentIP))
+  iface.component_id = "eth1"
+  iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
+  link.addInterface(iface)
+  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_webserver.sh"))
+  currentIP = currentIP + 1
+  
+# setup broker
+  node = request.XenVM("broker")
+  node.cores = 2
+  node.ram = 2048
+  node.routable_control_ip = "true" 
+  node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
+  iface = node.addInterface("if" + str(currentIP))
+  iface.component_id = "eth1"
+  iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
+  link.addInterface(iface)
+  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_broker.sh"))
+  currentIP = currentIP + 1
+
+# setup Spark cluster
+for i in range(5):
+  if i == 0:
+    node = request.XenVM("head")
+    node.routable_control_ip = "true" 
+  else:
+    node = request.XenVM("worker-" + str(i))
+  node.cores = 4
+  node.ram = 8192
+  node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
+  iface = node.addInterface("if" + str(currentIP))
   iface.component_id = "eth1"
   iface.addAddress(pg.IPv4Address(prefixForIP + str(i + 1), "255.255.255.0"))
   link.addInterface(iface)
-  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup.sh"))
+  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark.sh"))
+
+# setup grafana
+  node = request.XenVM("grafana")
+  node.cores = 2
+  node.ram = 2048
+  node.routable_control_ip = "true" 
+  node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
+  iface = node.addInterface("if" + str(currentIP))
+  iface.component_id = "eth1"
+  iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
+  link.addInterface(iface)
+  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_grafana.sh"))
+  currentIP = currentIP + 1
   
+ 
 pc.printRequestRSpec(request)
