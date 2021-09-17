@@ -5,6 +5,16 @@ import geni.rspec.igext as IG
 pc = portal.Context()
 request = pc.makeRequestRSpec()
 
+pc.defineParameter("sparkCount", "Number of Spark compute nodes",
+                   portal.ParameterType.INTEGER, 4)
+
+
+pc.defineParameter("serverCount", "Number of honey pot webservers",
+                   portal.ParameterType.INTEGER, 1)
+
+params = pc.bindParameters()
+pc.verifyParameters()
+
 tourDescription = \
 """
 This profile provides the template for a small cluster to implement/test Spark Streaming Dashboard
@@ -13,8 +23,11 @@ This profile provides the template for a small cluster to implement/test Spark S
 #
 # Setup the Tour info with the above description and instructions.
 #  
+
 tour = IG.Tour()
 tour.Description(IG.Tour.TEXT,tourDescription)
+tour.Instructions(IG.Tour.MARKDOWN, tourInstructions)
+
 request.addTour(tour)
 
 prefixForIP = "192.168.1."
