@@ -23,8 +23,8 @@ This profile provides the template for a small cluster to implement/test Spark S
 
 tourInstructions = \
 """
-After your instance boots (approx. 10-15 minutes), you can begin the setup process using 
-[Ambari Server WebUI](http://{host-namenode}:8080/) with the default admin/admin as username and password. 
+[Grafana Server WebUI](http://{host-grafana}:8080/) 
+[Jupyter Server](http://{host-sparkMaster}:4040/) with the default admin/admin as username and password. 
 """
 
 
