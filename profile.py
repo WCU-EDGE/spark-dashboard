@@ -42,7 +42,7 @@ currentIP = 1
 link = request.LAN("lan")
 
 # setup three webservers
-for i in range(3):
+for i in range(params.serverCount):
   node = request.XenVM("ws" + str(i+1))
   node.routable_control_ip = "true" 
   node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
@@ -67,7 +67,7 @@ node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setu
 currentIP = currentIP + 1
 
 # setup Spark cluster
-for i in range(5):
+for i in range(params.sparkCount):
   if i == 0:
     node = request.XenVM("head")
     node.routable_control_ip = "true" 
