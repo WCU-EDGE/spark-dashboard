@@ -83,17 +83,17 @@ for i in range(5):
   node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark.sh"))
 
 # setup grafana
-  node = request.XenVM("grafana")
-  node.cores = 2
-  node.ram = 2048
-  node.routable_control_ip = "true" 
-  node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
-  iface = node.addInterface("if" + str(currentIP))
-  iface.component_id = "eth1"
-  iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
-  link.addInterface(iface)
-  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_grafana.sh"))
-  currentIP = currentIP + 1
+node = request.XenVM("grafana")
+node.cores = 2
+node.ram = 2048
+node.routable_control_ip = "true" 
+node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
+iface = node.addInterface("if" + str(currentIP))
+iface.component_id = "eth1"
+iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
+link.addInterface(iface)
+node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_grafana.sh"))
+currentIP = currentIP + 1
   
  
 pc.printRequestRSpec(request)
