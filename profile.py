@@ -54,17 +54,17 @@ for i in range(3):
   currentIP = currentIP + 1
   
 # setup broker
-  node = request.XenVM("broker")
-  node.cores = 2
-  node.ram = 2048
-  node.routable_control_ip = "true" 
-  node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
-  iface = node.addInterface("if" + str(currentIP))
-  iface.component_id = "eth1"
-  iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
-  link.addInterface(iface)
-  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_broker.sh"))
-  currentIP = currentIP + 1
+node = request.XenVM("broker")
+node.cores = 2
+node.ram = 2048
+node.routable_control_ip = "true" 
+node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
+iface = node.addInterface("if" + str(currentIP))
+iface.component_id = "eth1"
+iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
+link.addInterface(iface)
+node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_broker.sh"))
+currentIP = currentIP + 1
 
 # setup Spark cluster
 for i in range(5):
