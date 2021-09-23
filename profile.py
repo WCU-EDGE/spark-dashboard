@@ -41,6 +41,28 @@ prefixForIP = "192.168.1."
 currentIP = 1
 link = request.LAN("lan")
 
+# setup Spark cluster
+for i in range(params.sparkCount):
+  if i == 0:
+    node = request.XenVM("head")
+    node.routable_control_ip = "true"
+    bs = node.Blockstore("bs" + str(i), "/opt")
+    bs.size = "100GB"
+  else:
+    node = request.XenVM("worker-" + str(i))
+  node.cores = 4
+  node.ram = 8192
+  node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
+  iface = node.addInterface("if" + str(currentIP))
+  iface.component_id = "eth1"
+  iface.addAddress(pg.IPv4Address(prefixForIP + str(i + 1), "255.255.255.0"))
+  link.addInterface(iface)
+  if i == 0:
+    node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_master.sh"))
+  else:
+    node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_workers.sh"))
+    
+    
 # setup three webservers
 for i in range(params.serverCount):
   node = request.XenVM("ws" + str(i+1))
@@ -65,22 +87,6 @@ iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
 link.addInterface(iface)
 node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_broker.sh"))
 currentIP = currentIP + 1
-
-# setup Spark cluster
-for i in range(params.sparkCount):
-  if i == 0:
-    node = request.XenVM("head")
-    node.routable_control_ip = "true" 
-  else:
-    node = request.XenVM("worker-" + str(i))
-  node.cores = 4
-  node.ram = 8192
-  node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
-  iface = node.addInterface("if" + str(currentIP))
-  iface.component_id = "eth1"
-  iface.addAddress(pg.IPv4Address(prefixForIP + str(i + 1), "255.255.255.0"))
-  link.addInterface(iface)
-  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark.sh"))
 
 # setup grafana
 node = request.XenVM("grafana")
