@@ -2,13 +2,8 @@
 
 set -x
 sudo apt-get install -y nfs-common
-sudo mkdir -p /opt/keys
 
-while [ ! -d /opt/keys/flagdir ]; do
-  sudo mount 192.168.1.1:/opt/keys /opt/keys
+while [ ! -d /opt/flagdir ]; do
+  sudo mount 192.168.1.1:/opt /opt
   sleep 10
-done
-
-while [ ! -f /opt/keys/kube_done ]; do
-  sleep 20
 done
