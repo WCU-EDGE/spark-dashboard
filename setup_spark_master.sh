@@ -18,7 +18,7 @@ sudo chmod -R a+rwx /opt/spark-3.0.3-bin-hadoop3.2
 
 for i in 2 .. ${workerS}
 do
-  echo "/opt 192.168.1.${i}(rw,sync,no_root_squash,no_subtree_check)" | sudo tee -a /etc/exports
+  echo "/opt/spark-3.0.3-bin-hadoop3.2 192.168.1.${i}(rw,sync,no_root_squash,no_subtree_check)" | sudo tee -a /etc/exports
 done
 
 sudo systemctl restart nfs-kernel-server
