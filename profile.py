@@ -72,7 +72,7 @@ for i in range(params.serverCount):
   iface.component_id = "eth1"
   iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
   link.addInterface(iface)
-  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_webserver.sh"))
+  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_webserver.sh " + str(params.sparkCount)))
   currentIP = currentIP + 1
   
 # setup broker
