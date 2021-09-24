@@ -5,6 +5,7 @@ set -x
 workers=$1
 echo "Number of workers: ${workers}"
 
+sudo apt-get update
 sudo apt-get install -y nfs-kernel-server
 sudo mkdir -p /opt/flagdir
 sudo chown nobody:nogroup /opt
