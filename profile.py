@@ -58,7 +58,7 @@ for i in range(params.sparkCount):
   iface.addAddress(pg.IPv4Address(prefixForIP + str(i + 1), "255.255.255.0"))
   link.addInterface(iface)
   if i == 0:
-    node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_master.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_master.sh" + str(params.sparkCount)))
   else:
     node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_workers.sh"))
     
@@ -72,7 +72,7 @@ for i in range(params.serverCount):
   iface.component_id = "eth1"
   iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
   link.addInterface(iface)
-  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_webserver.sh " + str(params.sparkCount)))
+  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_webserver.sh "))
   currentIP = currentIP + 1
   
 # setup broker
