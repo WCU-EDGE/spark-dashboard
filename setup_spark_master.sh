@@ -30,3 +30,7 @@ mv jdk-11.0.12+7 /opt/software/
 rm OpenJDK11U-jdk_x64_linux_hotspot_11.0.12_7.tar.gz
 
 sudo touch /opt/software/DONE
+
+#export JAVA_HOME=/opt/software/jdk-11.0.12+7
+#lngo@head:/opt/software/jdk-11.0.12+7$ cd /opt/software/spark-3.0.3-bin-hadoop3.2/
+#./bin/spark-class org.apache.spark.deploy.master.Master --ip 192.168.1.1 --port 7077 --webui-port 8080 >> /opt/software/log
