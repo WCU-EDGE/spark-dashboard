@@ -24,4 +24,9 @@ tar xzf spark-3.0.3-bin-hadoop3.2.tgz
 mv spark-3.0.3-bin-hadoop3.2 /opt/software/
 rm spark-3.0.3-bin-hadoop3.2.tgz
 
+wget --no-verbose https://www.cs.wcupa.edu/lngo/data2/OpenJDK11U-jdk_x64_linux_hotspot_11.0.12_7.tar.gz
+tar xzf OpenJDK11U-jdk_x64_linux_hotspot_11.0.12_7.tar.gz
+mv jdk-11.0.12+7 /opt/software/
+rm OpenJDK11U-jdk_x64_linux_hotspot_11.0.12_7.tar.gz
+
 sudo touch /opt/software/DONE
