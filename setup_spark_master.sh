@@ -12,7 +12,7 @@ sudo mkdir -p /opt/software
 sudo chown nobody:nogroup /opt/software
 sudo chmod -R a+rwx /opt/software
 
-for i in {2..$workers}
+for (( i=2; i<=$workers; i++ ))
 do
   echo "/opt/software 192.168.1.${i}(rw,sync,no_root_squash,no_subtree_check)" | sudo tee -a /etc/exports
 done
