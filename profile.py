@@ -58,7 +58,7 @@ for i in range(params.sparkCount):
   iface.addAddress(pg.IPv4Address(prefixForIP + str(i + 1), "255.255.255.0"))
   link.addInterface(iface)
   if i == 0:
-    node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_master.sh" + str(params.sparkCount)))
+    node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_master.sh " + str(params.sparkCount)))
   else:
     node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_workers.sh"))
     
