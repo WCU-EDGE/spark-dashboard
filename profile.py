@@ -12,6 +12,10 @@ pc.defineParameter("sparkCount", "Number of Spark compute nodes",
 pc.defineParameter("serverCount", "Number of honey pot webservers",
                    portal.ParameterType.INTEGER, 1)
 
+pc.defineParameter("notebookPass","The Jupyter notebook password",
+                   portal.ParameterType.STRING,"",advanced=True,
+                   longDescription="You should choose a unique password at least 8 characters long.")
+
 params = pc.bindParameters()
 pc.verifyParameters()
 
@@ -24,6 +28,9 @@ This profile provides the template for a small cluster to implement/test Spark S
 tourInstructions = \
 """
 [Grafana Server WebUI](http://{host-grafana}:8080/) 
+[Spark Cluster WebUI](http://{host-head}:4040/)
+[Jupyter Notebook Server](http://{host-head}:8888/)
+Jupyter notebook password: {password-notebookPass}
 """
 
 
@@ -57,6 +64,7 @@ for i in range(params.sparkCount):
   iface.component_id = "eth1"
   iface.addAddress(pg.IPv4Address(prefixForIP + str(i + 1), "255.255.255.0"))
   link.addInterface(iface)
+  node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_user.sh " + str(params.notebookPass)))
   if i == 0:
     node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_master.sh " + str(params.sparkCount)))
   else:
