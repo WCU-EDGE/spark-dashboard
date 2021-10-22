@@ -19,7 +19,9 @@ pc.defineParameter("notebookPass","The Jupyter notebook password",
 
 class EmulabEncrypt(pg.Resource):
     def _write(self, root):
-        ns = "{http://www.protogeni.net/resources/rspec/ext/emulab/1}"
+        #ns = "{http://www.protogeni.net/resources/rspec/ext/emulab/1}"
+        ns = "{http://www.protogeni.net/resources/rspec/ext/johnsond/1}"
+        
         el = ET.SubElement(root,"%spassword" % (ns,),attrib={'name':'notebookPass'})
         pass
     pass
@@ -41,7 +43,7 @@ tourInstructions = \
 
 [Jupyter Notebook Server](http://{host-head}:8888/)
 
-Jupyter notebook password: {host-notebookPass}
+Jupyter notebook password: {password-notebookPass}
 """
 
 
