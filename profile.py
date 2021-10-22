@@ -39,7 +39,7 @@ tourInstructions = \
 """
 [Grafana Server WebUI](http://{host-grafana}:8080/) 
 
-[Spark Cluster WebUI](http://{host-head}:4040/)
+[Spark Cluster WebUI](http://{host-head}:8080/)
 
 [Jupyter Notebook Server](http://{host-head}:8888/)
 
