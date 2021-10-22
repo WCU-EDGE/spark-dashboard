@@ -1,6 +1,7 @@
 import geni.portal as portal
 import geni.rspec.pg as pg
 import geni.rspec.igext as IG
+from lxml import etree as ET
 
 pc = portal.Context()
 request = pc.makeRequestRSpec()
@@ -16,6 +17,13 @@ pc.defineParameter("notebookPass","The Jupyter notebook password",
                    portal.ParameterType.STRING,"",advanced=True,
                    longDescription="You should choose a unique password at least 8 characters long.")
 
+class EmulabEncrypt(pg.Resource):
+    def _write(self, root):
+        ns = "{http://www.protogeni.net/resources/rspec/ext/emulab/1}"
+        el = ET.SubElement(root,"%spassword" % (ns,),attrib={'name':'notebookPass'})
+        pass
+    pass
+
 params = pc.bindParameters()
 pc.verifyParameters()
 
@@ -28,8 +36,11 @@ This profile provides the template for a small cluster to implement/test Spark S
 tourInstructions = \
 """
 [Grafana Server WebUI](http://{host-grafana}:8080/) 
+
 [Spark Cluster WebUI](http://{host-head}:4040/)
+
 [Jupyter Notebook Server](http://{host-head}:8888/)
+
 Jupyter notebook password: {password-notebookPass}
 """
 
@@ -66,7 +77,7 @@ for i in range(params.sparkCount):
   link.addInterface(iface)
   node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_user.sh " + str(params.notebookPass)))
   if i == 0:
-    node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_master.sh " + str(params.sparkCount)))
+    node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_master.sh " + str(params.sparkCount) + " " + str(params.notebookPass)))
   else:
     node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_spark_workers.sh"))
     
@@ -108,6 +119,10 @@ iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
 link.addInterface(iface)
 node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_grafana.sh"))
 currentIP = currentIP + 1
-  
+
+if True:
+    stuffToEncrypt = EmulabEncrypt()
+    request.addResource(stuffToEncrypt)
+    pass
  
 pc.printRequestRSpec(request)
