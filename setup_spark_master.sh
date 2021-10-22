@@ -36,7 +36,7 @@ echo 'export SPARK_HOME="/opt/software/spark-3.0.3-bin-hadoop3.2/"' >> /home/ram
 echo 'export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$PATH' >> /home/rammy/.bashrc
 chown rammy: /home/rammy/.bashrc
 
-sudo -H -u rammy bash -c "jupyter notebook --port 8888 --no-browser --ip=0.0.0.0 --NotebookApp.token='' --NotebookApp.password='$2' &" &
+sudo -H -u rammy bash -c "jupyter notebook --port 8888 --no-browser --ip=0.0.0.0 --NotebookApp.token='' --NotebookApp.password=$2 &" &
 sudo -H -u rammy bash -c '. $SPARK_HOME/bin/spark-class org.apache.spark.deploy.master.Master --ip 192.168.1.1 --port 7077 --webui-port 8080 >> /opt/software/master.log &' &
 
 
