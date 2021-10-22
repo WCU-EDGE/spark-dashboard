@@ -39,7 +39,7 @@ echo 'export SPARK_HOME="/opt/software/spark-3.0.3-bin-hadoop3.2/"' >> /home/ram
 echo 'export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$PATH' >> /home/rammy/.bashrc
 chown rammy: /home/rammy/.bashrc
 
-npPasswd=$(python3 -c "from notebook.auth import passwd; print(passwd('$2',algorithm="sha1"))")
+npPasswd=$(python3 -c "from notebook.auth import passwd; print(passwd('$2',algorithm='sha1'))")
 echo $npPasswd
 
 sudo -H -u rammy bash -i -c "jupyter notebook --port 8888 --no-browser --ip=0.0.0.0 --NotebookApp.token='' --NotebookApp.password=$npPasswd &" &
