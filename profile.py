@@ -74,7 +74,8 @@ for i in range(params.sparkCount):
   node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
   iface = node.addInterface("if" + str(currentIP))
   iface.component_id = "eth1"
-  iface.addAddress(pg.IPv4Address(prefixForIP + str(i + 1), "255.255.255.0"))
+  iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
+  currentIP = currentIP + 1
   link.addInterface(iface)
   node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_user.sh " + str(params.notebookPass)))
   if i == 0:
