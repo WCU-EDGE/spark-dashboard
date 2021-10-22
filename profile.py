@@ -41,7 +41,7 @@ tourInstructions = \
 
 [Jupyter Notebook Server](http://{host-head}:8888/)
 
-Jupyter notebook password: {password-notebookPass}
+Jupyter notebook password: {host-notebookPass}
 """
 
 
