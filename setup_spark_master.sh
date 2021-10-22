@@ -31,6 +31,9 @@ rm OpenJDK11U-jdk_x64_linux_hotspot_11.0.12_7.tar.gz
 
 sudo touch /opt/software/DONE
 
+sudo chown -R rammy: /opt/software/jdk-11.0.12+7
+sudo chown -R rammy: /opt/software/spark-3.0.3-bin-hadoop3.2
+
 echo 'export JAVA_HOME=/opt/software/jdk-11.0.12+7' >> /home/rammy/.bashrc
 echo 'export SPARK_HOME="/opt/software/spark-3.0.3-bin-hadoop3.2/"' >> /home/rammy/.bashrc
 echo 'export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$PATH' >> /home/rammy/.bashrc
