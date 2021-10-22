@@ -42,7 +42,7 @@ chown rammy: /home/rammy/.bashrc
 npPasswd=$(python3 -c "from notebook.auth import passwd; print(passwd('$2',algorithm='sha1'))")
 echo $npPasswd
 
-sudo -H -u rammy bash -i -c "jupyter notebook --port 8888 --no-browser --ip=0.0.0.0 --NotebookApp.token='' --NotebookApp.password=$npPasswd &" &
+sudo -H -u rammy bash -i -c "jupyter notebook --port 8888 --no-browser --ip=0.0.0.0 --NotebookApp.token='' --NotebookApp.password=$npPasswd --NotebookApp.noteboook_dir=/home/rammy/ &" &
 sudo -H -u rammy bash -i -c 'spark-class org.apache.spark.deploy.master.Master --ip 192.168.1.1 --port 7077 --webui-port 8080 >> /opt/software/master.log &' &
 
 #export JAVA_HOME=/opt/software/jdk-11.0.12+7
