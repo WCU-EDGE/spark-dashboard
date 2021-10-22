@@ -14,7 +14,7 @@ pc.defineParameter("serverCount", "Number of honey pot webservers",
                    portal.ParameterType.INTEGER, 1)
 
 pc.defineParameter("notebookPass","The Jupyter notebook password",
-                   portal.ParameterType.STRING,"",advanced=True,
+                   portal.ParameterType.STRING,"",
                    longDescription="You should choose a unique password at least 8 characters long.")
 
 class EmulabEncrypt(pg.Resource):
