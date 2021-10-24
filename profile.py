@@ -37,7 +37,7 @@ This profile provides the template for a small cluster to implement/test Spark S
 
 tourInstructions = \
 """
-[Grafana Server WebUI](http://{host-grafana}:8080/) 
+[Grafana Server WebUI](http://{host-grafana}:3000/) 
 
 [Spark Cluster WebUI](http://{host-head}:8080/)
 
