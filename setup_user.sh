@@ -4,6 +4,7 @@ apt-get update
 apt-get install -qqq -y python3 python3-pip python3-numpy python3-matplotlib python3-scipy python3-pandas python3-simpy ipython3
 pip3 install tweepy feedparser jupyter ipykernel findspark
 pip3 install --upgrade Pygments
+pip3 install --upgrade ipython
 update-alternatives --install "/usr/bin/python" "python" "$(which python3)" 1
 
 echo "Password: " $1
