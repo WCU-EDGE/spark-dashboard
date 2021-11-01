@@ -119,7 +119,7 @@ iface = node.addInterface("if" + str(currentIP))
 iface.component_id = "eth1"
 iface.addAddress(pg.IPv4Address(prefixForIP + str(currentIP), "255.255.255.0"))
 link.addInterface(iface)
-node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_grafana.sh"))
+node.addService(pg.Execute(shell="sh", command="sudo bash /local/repository/setup_grafana.sh pc.notebookPass"))
 currentIP = currentIP + 1
 
 if True:
