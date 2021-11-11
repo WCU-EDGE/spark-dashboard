@@ -13,7 +13,7 @@ tar -xzf kafka_2.13-3.0.0.tgz
 mv kafka_2.13-3.0.0 /opt/software/
 rm kafka_2.13-3.0.0.tgz
 
-echo 'export JAVA_HOME=/opt/software/jdk-11.0.12+7'
+export JAVA_HOME=/opt/software/jdk-11.0.12+7
 # echo 'export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$PATH' >> /home/rammy/.bashrc
 # chown rammy: /home/rammy/.bashrc
 
