@@ -22,6 +22,7 @@ update-alternatives --install "/usr/bin/python" "python" "$(which python3)" 1
 # Changing port from default to port 8080
 sudo sed -i 's/;http_port = 3000/http_port = 8080/' /etc/grafana/grafana.ini
 
+# Change password to Jupyter Notebook password
 grafPasswd=$(python3 -c "from notebook.auth import passwd; print(passwd('$1',algorithm='sha1'))")
 sudo sed -i "s/;admin_password = admin/admin_password = $grafPasswd/" /etc/grafana/grafana.ini
 
