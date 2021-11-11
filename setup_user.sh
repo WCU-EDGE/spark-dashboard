@@ -5,6 +5,7 @@ apt-get install -qqq -y python3 python3-pip python3-numpy python3-matplotlib pyt
 pip3 install tweepy feedparser jupyter ipykernel findspark
 pip3 install --upgrade Pygments
 pip3 install --upgrade ipython
+pip3 install kafka-python
 update-alternatives --install "/usr/bin/python" "python" "$(which python3)" 1
 
 echo "Password: " $1
