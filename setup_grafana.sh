@@ -10,9 +10,20 @@ echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/a
 sudo apt-get update
 sudo apt-get install grafana
 
+# Install anaconda
+apt-get update
+apt-get install -qqq -y python3 python3-pip python3-numpy python3-matplotlib python3-scipy python3-pandas python3-simpy ipython3
+pip3 install tweepy feedparser jupyter ipykernel findspark
+pip3 install --upgrade Pygments
+pip3 install --upgrade ipython
+update-alternatives --install "/usr/bin/python" "python" "$(which python3)" 1
+
+
 # Changing port from default to port 8080
 sudo sed -i 's/;http_port = 3000/http_port = 8080/' /etc/grafana/grafana.ini
-sudo sed -i "s/;admin_password = admin/admin_password = $1/" /etc/grafana/grafana.ini
+
+grafPasswd=$(python3 -c "from notebook.auth import passwd; print(passwd('$1',algorithm='sha1'))")
+sudo sed -i "s/;admin_password = admin/admin_password = $grafPasswd/" /etc/grafana/grafana.ini
 
 # Starting grafana server and enabling start at boot
 sudo systemctl daemon-reload
