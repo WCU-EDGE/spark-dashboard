@@ -14,9 +14,11 @@ mv kafka_2.13-3.0.0 /opt/software/
 rm kafka_2.13-3.0.0.tgz
 
 export JAVA_HOME=/opt/software/jdk-11.0.12+7
-# echo 'export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$PATH' >> /home/rammy/.bashrc
-# chown rammy: /home/rammy/.bashrc
 
 cd /opt/software/kafka_2.13-3.0.0
+#Start kafka environment
 bin/zookeeper-server-start.sh -daemon /local/repository/kafka/zookeeper.properties
 bin/kafka-server-start.sh -daemon /local/repository/kafka/server.properties
+#create topics
+bin/kafka-topics.sh --create --topic auth.log --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+bin/kafka-topics.sh --create --topic spark_results --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
