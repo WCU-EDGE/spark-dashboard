@@ -2,13 +2,16 @@ set -x
 sudo apt-get install -y apt-transport-https
 sudo apt-get install -y software-properties-common wget
 wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+sudo curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
 
 #Adding repository for stable releases 
 echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+sudo echo "deb https://repos.influxdata.com/ubuntu bionic stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 
-# Install grafana 
+# Install Grafana / InfluxDB
 sudo apt-get update
 sudo apt-get install grafana
+sudo apt install influxdb
 
 # Install anaconda
 apt-get update
@@ -29,4 +32,7 @@ sudo sed -i "s/;admin_password = admin/admin_password = $grafPasswd/" /etc/grafa
 # Starting grafana server and enabling start at boot
 sudo systemctl daemon-reload
 sudo systemctl start grafana-server
+sudo systemctl start influxdb
+influx -execute 'CREATE DATABASE test'
 sudo systemctl enable grafana-server.service
+sudo systemtl enable influxdb.service
